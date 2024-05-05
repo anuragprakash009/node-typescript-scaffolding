@@ -19,8 +19,7 @@ class ExpressApp implements App<Application> {
         status: true,
         statusCode: 200,
         data: {
-          name: "Anurag Prakash",
-          phone: "8521987297",
+          name: "working",
         },
       });
     });
