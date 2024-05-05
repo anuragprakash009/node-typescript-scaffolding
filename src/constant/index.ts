@@ -1,3 +1,3 @@
-import { HTTP } from "./http.constants";
+import { HTTP } from "./http.constant";
 
 export { HTTP };
