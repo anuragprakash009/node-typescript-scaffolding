@@ -1,13 +1,19 @@
 import { ExpressApp } from "../app";
 import { PostgresDataBase } from "../database";
+import { LoggerService } from "../logger";
 
 class Loader {
   private app: ExpressApp;
   private postgres: PostgresDataBase;
-
-  constructor(app: ExpressApp, postgres: PostgresDataBase) {
+  private logger: LoggerService;
+  constructor(
+    app: ExpressApp,
+    postgres: PostgresDataBase,
+    logger: LoggerService
+  ) {
     this.app = app;
     this.postgres = postgres;
+    this.logger = logger;
   }
   async loadServer(): Promise<void> {
     console.log("Starting server...");
@@ -15,7 +21,7 @@ class Loader {
     this.postgres.connect();
     await this.postgres.authenticate();
     console.log("Connected to postgres...");
-    this.app.loggers();
+    this.logger.info(`Server started`);
     this.app.middlewares();
     this.app.routes();
     this.app.start();

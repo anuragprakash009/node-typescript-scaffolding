@@ -8,9 +8,6 @@ class ExpressApp implements App<Application> {
     this.port = port || 8000;
     this.app = app;
   }
-  loggers(): void {
-    console.log(`Loggers initialized`);
-  }
   middlewares(): void {
     console.log(`Middlewares initialized`);
   }
