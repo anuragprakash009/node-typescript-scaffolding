@@ -1,12 +1,7 @@
 interface LoggerService {
-  info(fileName: string, methodName: string, message: string): void;
-  debug(fileName: string, methodName: string, message: string): void;
-  error(
-    fileName: string,
-    methodName: string,
-    message: string,
-    errorStack: string | undefined
-  ): void;
+  info(msg: string): void;
+  debug(msg: string): void;
+  error(msg: string): void;
 }
 
 export { LoggerService };

@@ -2,6 +2,7 @@ import { Logger, createLogger, format, transports } from "winston";
 import { env } from "../config/";
 import { join } from "path";
 import { LoggerService } from "./logger.interface";
+import DailyRotateFile from "winston-daily-rotate-file";
 
 class WinstonLogger implements LoggerService {
   private logger: Logger;
@@ -11,16 +12,26 @@ class WinstonLogger implements LoggerService {
     this.logger = createLogger({
       format: format.json(),
       transports: [
-        new transports.File({
-          filename: `${join(this.filePath, "error.log")}`,
+        new DailyRotateFile({
+          filename: `${join(this.filePath, "application-error-%DATE%.log")}`,
           level: "error",
+          datePattern: "YYYY-MM-DD-HH",
+          maxSize: "50m",
+          maxFiles: "30d",
         }),
-        new transports.File({
-          filename: `${join(this.filePath, "debug.log")}`,
+        new DailyRotateFile({
+          filename: `${join(this.filePath, "application-info-%DATE%.log")}`,
+          level: "info",
+          datePattern: "YYYY-MM-DD-HH",
+          maxSize: "50m",
+          maxFiles: "30d",
+        }),
+        new DailyRotateFile({
+          filename: `${join(this.filePath, "application-combined-%DATE%.log")}`,
           level: "debug",
-        }),
-        new transports.File({
-          filename: `${join(this.filePath, "combined.log")}`,
+          datePattern: "YYYY-MM-DD-HH",
+          maxSize: "50m",
+          maxFiles: "30d",
         }),
       ],
     });
@@ -32,51 +43,26 @@ class WinstonLogger implements LoggerService {
       );
     }
   }
-  debug(fileName: string, methodName: string, message: string): void {
+  debug(message: string): void {
     const isoTimeStamp = new Date().toISOString();
-
-    const formattedMessage = this.getFormattedMessage(
-      fileName,
-      methodName,
-      message
-    );
 
     this.logger.debug({
-      message: formattedMessage,
+      message: message,
       timeStamp: isoTimeStamp,
     });
   }
-  error(
-    fileName: string,
-    methodName: string,
-    message: string,
-    errorStack: string | undefined
-  ): void {
+  error(message: string): void {
     const isoTimeStamp = new Date().toISOString();
-
-    const formattedMessage = this.getFormattedMessage(
-      fileName,
-      methodName,
-      message,
-      errorStack
-    );
 
     this.logger.error({
-      message: formattedMessage,
+      message: message,
       timeStamp: isoTimeStamp,
     });
   }
-  info(fileName: string, methodName: string, message: string): void {
+  info(message: string): void {
     const isoTimeStamp = new Date().toISOString();
-
-    const formattedMessage = this.getFormattedMessage(
-      fileName,
-      methodName,
-      message
-    );
-
     this.logger.info({
-      message: formattedMessage,
+      message: message,
       timeStamp: isoTimeStamp,
     });
   }
