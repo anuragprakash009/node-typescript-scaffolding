@@ -1,5 +1,7 @@
-import { Application, Request, Response } from "express";
+import { Application } from "express";
 import { App } from "./app-interface";
+import { productRouters } from "../module";
+import { APP_CONSTANT } from "../constant";
 
 class ExpressApp implements App<Application> {
   private app: Application;
@@ -11,18 +13,14 @@ class ExpressApp implements App<Application> {
   middlewares(): void {
     console.log(`Middlewares initialized`);
   }
+
   routes(): void {
     console.log(`Routes initialized`);
-    this.app.get("/api/", (req: Request, res: Response) => {
-      console.log(req);
-      res.json({
-        status: true,
-        statusCode: 200,
-        data: {
-          name: "working",
-        },
-      });
-    });
+    const projectBaseUrl: string =
+      APP_CONSTANT.SERVICE.BASE_URL +
+      APP_CONSTANT.VERSION.NUMBER +
+      APP_CONSTANT.MODULE.PRODUCT.BASE_URL;
+    this.app.use(projectBaseUrl, productRouters);
   }
   start(): void {
     this.app.listen(this.port, () => {
