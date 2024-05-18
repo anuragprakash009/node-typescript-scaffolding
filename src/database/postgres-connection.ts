@@ -1,6 +1,6 @@
-import { DataBase } from "./db-interface";
+import { DataBase } from './db-interface';
 
-import { Sequelize } from "sequelize";
+import { Sequelize } from 'sequelize';
 
 class PostgresDataBase implements DataBase {
   private static conn: any;
@@ -14,7 +14,7 @@ class PostgresDataBase implements DataBase {
     database: string,
     password: string,
     host: string,
-    port: number
+    port: number,
   ) {
     PostgresDataBase.conn = null;
     this.username = username;
@@ -30,12 +30,12 @@ class PostgresDataBase implements DataBase {
       this.password,
       {
         host: this.host,
-        dialect: "postgres",
+        dialect: 'postgres',
         username: this.username,
         password: this.password,
         port: Number(this.port),
         database: this.database,
-      }
+      },
     );
   }
 
@@ -48,12 +48,12 @@ class PostgresDataBase implements DataBase {
     await PostgresDataBase.conn.sync({
       alter: true,
     });
-    console.log("All models were synchronized successfully.");
+    console.log('All models were synchronized successfully.');
   }
 
   static getConnection(): Sequelize {
     if (!PostgresDataBase.conn) {
-      throw new Error("No Database connection available");
+      throw new Error('No Database connection available');
     }
     return PostgresDataBase.conn;
   }

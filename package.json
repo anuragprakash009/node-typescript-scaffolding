@@ -9,19 +9,19 @@
     "start": "node dist/index.js",
     "dev": "nodemon index.ts",
     "format:write": "npx prettier --write .",
-    "format:check": "npx prettier --check ."
+    "format:check": "npx prettier --check .",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.21",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "husky": "^8.0.0"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
@@ -32,15 +32,5 @@
     "sequelize": "^6.37.2",
     "winston": "^3.13.0",
     "winston-daily-rotate-file": "^5.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged":{
-    "*.{ts,json,css,md,html}":[
-      "npm run format:write && git add -A ."
-    ]
   }
 }

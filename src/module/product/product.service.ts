@@ -4,7 +4,8 @@
 class ProductService {
   // private productHelper: ProductHelper;
   // private productRepository: ProductRepository;
-  constructor() { // productRepository: ProductRepository // productHelper: ProductHelper,
+  constructor() {
+    // productRepository: ProductRepository // productHelper: ProductHelper,
     // this.productHelper = productHelper;
     // this.productRepository = productRepository;
   }
@@ -12,8 +13,8 @@ class ProductService {
   getProducts(): Object {
     try {
       return {
-        id: "1",
-        name: "Product",
+        id: '1',
+        name: 'Product',
       };
     } catch (error) {
       throw error;

@@ -1,6 +1,6 @@
-import express, { Router } from "express";
-import { ProductController } from "./product.controller";
-import { ProductService } from "./product.service";
+import express, { Router } from 'express';
+import { ProductController } from './product.controller';
+import { ProductService } from './product.service';
 // import { ProductRepository } from "./product.repository";
 // import { ProductHelper } from "./product.helper";
 
@@ -11,8 +11,8 @@ const productService: ProductService = new ProductService();
 // productHelper,
 // productRepository
 const productController: ProductController = new ProductController(
-  productService
+  productService,
 );
-router.get("/", productController.getProducts);
+router.get('/', productController.getProducts);
 
 export { router as productRouters };

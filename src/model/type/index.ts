@@ -1,3 +1,3 @@
-import { HttpResponse } from "./http.response.type";
+import { HttpResponse } from './http.response.type';
 
 export { HttpResponse };

@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import { ProductService } from "./product.service";
-import { HttpError } from "../../errors";
-import { APP_CONSTANT, HTTP } from "../../constant";
-import { HttpResponse } from "../../model/type";
+import { Request, Response } from 'express';
+import { ProductService } from './product.service';
+import { HttpError } from '../../errors';
+import { APP_CONSTANT, HTTP } from '../../constant';
+import { HttpResponse } from '../../model/type';
 
 class ProductController {
   private productService: ProductService;
@@ -16,8 +16,8 @@ class ProductController {
       const {} = req;
       const data = this.productService.getProducts();
       const httpReponse: HttpResponse<Object> = new HttpResponse(
-        "Product fetched successfully",
-        data
+        'Product fetched successfully',
+        data,
       );
       return res.send(httpReponse.toJSON());
     } catch (error) {

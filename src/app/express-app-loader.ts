@@ -1,7 +1,7 @@
-import { Application } from "express";
-import { App } from "./app-interface";
-import { productRouters } from "../module";
-import { APP_CONSTANT } from "../constant";
+import { Application } from 'express';
+import { App } from './app-interface';
+import { productRouters } from '../module';
+import { APP_CONSTANT } from '../constant';
 
 class ExpressApp implements App<Application> {
   private app: Application;

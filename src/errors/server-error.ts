@@ -1,6 +1,6 @@
-import { HttpError } from "./http-error";
+import { HttpError } from './http-error';
 
-import { HTTP } from "../constant/";
+import { HTTP } from '../constant/';
 
 class ServerError extends HttpError {
   constructor(message: string) {
