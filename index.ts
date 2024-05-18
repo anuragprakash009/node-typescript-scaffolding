@@ -28,5 +28,4 @@ const loader: Loader = new Loader(expressApp, postgresConn, logger);
 
 
 
-
 loader.loadServer();
