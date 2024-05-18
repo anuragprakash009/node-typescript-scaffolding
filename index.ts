@@ -23,4 +23,10 @@ const logger: LoggerService = new WinstonLogger(loggerPath);
 
 const loader: Loader = new Loader(expressApp, postgresConn, logger);
 
+
+
+
+
+
+
 loader.loadServer();
