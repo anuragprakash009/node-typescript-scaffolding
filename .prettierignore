@@ -1,0 +1,16 @@
+/.*
+*.zip
+*.log
+*.md
+yarn.lock
+dist/
+lib/
+icons/
+icon-sources/
+screenshots/
+vendor/
+
+**/.git
+**/.svn
+**/.hg
+**/node_modules

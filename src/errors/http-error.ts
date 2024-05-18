@@ -1,4 +1,4 @@
-import { CustomError } from "./interface-error";
+import { CustomError } from './interface-error';
 
 class HttpError extends Error implements CustomError {
   protected statusCode: number;

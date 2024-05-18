@@ -1,19 +1,19 @@
 const APP_CONSTANT = {
   MESSAGE: {
     ERROR: {
-      INTERNAL_SERVER_ERROR: "Internal Server Error",
+      INTERNAL_SERVER_ERROR: 'Internal Server Error',
     },
   },
   URL: {},
   SERVICE: {
-    BASE_URL: "/product-management-system",
+    BASE_URL: '/product-management-system',
   },
   VERSION: {
-    NUMBER: "/v1",
+    NUMBER: '/v1',
   },
   MODULE: {
     PRODUCT: {
-      BASE_URL: "/product",
+      BASE_URL: '/product',
     },
   },
 };
