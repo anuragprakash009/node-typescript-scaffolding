@@ -1,18 +1,8 @@
-import { CustomError } from "./interface-error";
+import { HttpError } from "./http-error";
 import { HTTP } from "../constant";
-class BadRequestError extends Error implements CustomError {
-  private statusCode: number;
-  private errorMessage: string;
+class BadRequestError extends HttpError {
   constructor(message: string) {
-    super(message);
-    this.errorMessage = message;
-    this.statusCode = HTTP.RESPONSE_CODE.BAD_REQUEST;
-  }
-  getErrorMessage(): string {
-    return this.errorMessage;
-  }
-  getErrorStatusCode(): number {
-    return this.statusCode;
+    super(HTTP.RESPONSE_CODE.BAD_REQUEST, message);
   }
 }
 
