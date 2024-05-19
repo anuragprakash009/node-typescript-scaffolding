@@ -2,14 +2,29 @@ import { Application } from 'express';
 import { App } from './app-interface';
 import { productRouters } from '../module';
 import { APP_CONSTANT } from '../constant';
+import { RotatingFileStream, createStream } from 'rotating-file-stream';
+import morgan from 'morgan';
 
 class ExpressApp implements App<Application> {
   private app: Application;
   private port: number;
-  constructor(app: Application, port: number) {
+  private accessLogStream: RotatingFileStream;
+  private logPath: string;
+
+  constructor(app: Application, port: number, logPath: string) {
     this.port = port || 8000;
     this.app = app;
+    this.logPath = logPath;
+    this.accessLogStream = createStream('access.log', {
+      interval: '30d',
+      path: this.logPath,
+    });
   }
+
+  morgan(): void {
+    this.app.use(morgan('combined', { stream: this.accessLogStream }));
+  }
+
   middlewares(): void {
     console.log(`Middlewares initialized`);
   }

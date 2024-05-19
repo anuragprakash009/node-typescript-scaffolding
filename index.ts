@@ -17,7 +17,7 @@ const postgresConn: PostgresDataBase = new PostgresDataBase(
   env.DB_PORT,
 );
 
-const expressApp: ExpressApp = new ExpressApp(app, env.PORT);
+const expressApp: ExpressApp = new ExpressApp(app, env.PORT, loggerPath);
 
 const logger: LoggerService = new WinstonLogger(loggerPath);
 
