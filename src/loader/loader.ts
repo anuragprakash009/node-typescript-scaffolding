@@ -22,7 +22,6 @@ class Loader {
     await this.postgres.authenticate();
     console.log('Connected to postgres...');
     this.logger.info(`Server started`);
-    this.app.morgan();
     this.app.middlewares();
     this.app.routes();
     this.app.start();
