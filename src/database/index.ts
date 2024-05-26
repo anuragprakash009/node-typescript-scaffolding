@@ -1,3 +1,3 @@
-import { PostgresDataBase } from "./postgres-connection";
+import { PostgresDataBase } from './postgres-connection';
 
 export { PostgresDataBase };

@@ -1,18 +1,10 @@
-import { CustomError } from "./interface-error";
+import { HttpError } from './http-error';
 
-class ServerError extends Error implements CustomError {
-  private statusCode: number;
-  private errorMessage: string;
+import { HTTP } from '../constant/';
+
+class ServerError extends HttpError {
   constructor(message: string) {
-    super(message);
-    this.errorMessage = message;
-    this.statusCode = 500;
-  }
-  getErrorMessage(): string {
-    return this.errorMessage;
-  }
-  getErrorStatusCode(): number {
-    return this.statusCode;
+    super(HTTP.RESPONSE_CODE.INTERNAL_SERVER_ERROR, message);
   }
 }
 

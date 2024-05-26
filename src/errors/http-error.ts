@@ -1,8 +1,8 @@
-import { CustomError } from "./interface-error";
+import { CustomError } from './interface-error';
 
 class HttpError extends Error implements CustomError {
-  private statusCode: number;
-  private errorMessage: string;
+  protected statusCode: number;
+  protected errorMessage: string;
   constructor(statusCode: number, message: string) {
     super(message);
     this.errorMessage = message;

@@ -1,5 +1,5 @@
-import { DataTypes, Model } from "sequelize";
-import { PostgresDataBase } from "../../database";
+import { DataTypes, Model } from 'sequelize';
+import { PostgresDataBase } from '../../database';
 
 class Product extends Model {}
 
@@ -19,9 +19,9 @@ Product.init(
   {
     sequelize: PostgresDataBase.getConnection(),
     freezeTableName: true,
-    modelName: "Product",
-  }
+    modelName: 'Product',
+  },
 );
 
-console.log("Product model created");
+console.log('Product model created');
 export { Product };

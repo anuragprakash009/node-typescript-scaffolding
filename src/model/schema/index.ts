@@ -1,3 +1,3 @@
-import { Product } from "./product.schema.model";
+import { Product } from './product.schema.model';
 
 export { Product };
