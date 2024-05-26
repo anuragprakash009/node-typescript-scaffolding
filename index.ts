@@ -3,10 +3,15 @@ import { env } from './src/config';
 import { PostgresDataBase } from './src/database';
 import { ExpressApp } from './src/app';
 import { Loader } from './src/loader';
-import { LoggerService, WinstonLogger } from './src/logger';
+import {
+  LoggerService,
+  WinstonLogger,
+  AccessLogger,
+  HttpAccessLogger,
+} from './src/logger';
 import { join } from 'path';
 
-const loggerPath: string = join(__dirname, 'src', 'logs');
+const loggerPath: string = join(__dirname, 'logs');
 
 const app = express();
 const postgresConn: PostgresDataBase = new PostgresDataBase(
@@ -17,7 +22,13 @@ const postgresConn: PostgresDataBase = new PostgresDataBase(
   env.DB_PORT,
 );
 
-const expressApp: ExpressApp = new ExpressApp(app, env.PORT);
+const morganAccessLogger: AccessLogger = new HttpAccessLogger(loggerPath);
+
+const expressApp: ExpressApp = new ExpressApp(
+  app,
+  env.PORT,
+  morganAccessLogger,
+);
 
 const logger: LoggerService = new WinstonLogger(loggerPath);
 
