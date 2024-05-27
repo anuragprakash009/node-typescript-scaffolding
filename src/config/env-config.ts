@@ -20,6 +20,10 @@ const env = cleanEnv(process.env, {
   PASSWORD: str(),
   DB_PORT: port(),
   DB_HOST: host(),
+  JWT_ACCESS: str(),
+  JWT_REFRESH_ACCESS: str(),
+  JWT_ACCESS_EXP: str(),
+  JWT_REFRESH_ACCESS_EXP: str(),
 });
 
 export { env };
