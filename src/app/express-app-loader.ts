@@ -1,6 +1,6 @@
-import { Application, Handler } from 'express';
+import express, { Application, Handler } from 'express';
 import { App } from './app-interface';
-import { productRouters } from '../module';
+import { productRouter, categoryRouter } from '../module';
 import { APP_CONSTANT } from '../constant';
 import { AccessLogger } from '../logger';
 
@@ -16,6 +16,7 @@ class ExpressApp implements App<Application> {
 
   middlewares(): void {
     console.log(`Middlewares initialized`);
+    this.app.use(express.json());
     const httpAccessLoggerMiddleware: Handler =
       this.accesslogger.getAccessLoggerMiddleWare();
     this.app.use(httpAccessLoggerMiddleware);
@@ -24,10 +25,16 @@ class ExpressApp implements App<Application> {
   routes(): void {
     console.log(`Routes initialized`);
     const projectBaseUrl: string =
-      APP_CONSTANT.SERVICE.BASE_URL +
+      APP_CONSTANT.SERVICE.PRODUCT_BASE_URL +
       APP_CONSTANT.VERSION.NUMBER +
-      APP_CONSTANT.MODULE.PRODUCT.BASE_URL;
-    this.app.use(projectBaseUrl, productRouters);
+      APP_CONSTANT.MODULE.PRODUCT.PRODUCT_BASE_URL;
+    this.app.use(projectBaseUrl, productRouter);
+
+    const categoryBaseUrl: string =
+      APP_CONSTANT.SERVICE.PRODUCT_BASE_URL +
+      APP_CONSTANT.VERSION.NUMBER +
+      APP_CONSTANT.MODULE.PRODUCT.CATEGORY_BASE_URL;
+    this.app.use(categoryBaseUrl, categoryRouter);
   }
   start(): void {
     this.app.listen(this.port, () => {

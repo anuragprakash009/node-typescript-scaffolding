@@ -1,3 +1,4 @@
-import { productRouters } from './product/product.router';
+import { productRouter } from './product/product.router';
+import { categoryRouter } from './category/category.router';
 
-export { productRouters };
+export { productRouter, categoryRouter };

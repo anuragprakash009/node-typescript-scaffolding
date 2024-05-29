@@ -1,9 +1,9 @@
 import { DataTypes, Model } from 'sequelize';
 import { PostgresDataBase } from '../../database';
 
-class Product extends Model {}
+class Category extends Model {}
 
-Product.init(
+Category.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -13,26 +13,31 @@ Product.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.STRING(1000),
-      allowNull: false,
-    },
-    category: {
-      type: DataTypes.UUID,
-      allowNull: true,
-    },
     isActive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: true,
     },
   },
   {
     sequelize: PostgresDataBase.getConnection(),
     freezeTableName: true,
-    modelName: 'Product',
+    modelName: 'Category',
     timestamps: true,
-    indexes: [],
+    indexes: [
+      {
+        name: 'fetchById',
+        fields: ['id', 'isActive'],
+      },
+    ],
+    hooks: {
+      beforeSave: (record: any) => {
+        if (!record.id) {
+          record.id = crypto.randomUUID();
+        }
+      },
+    },
   },
 );
 
-export { Product };
+export { Category };

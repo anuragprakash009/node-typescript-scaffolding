@@ -3,6 +3,7 @@ import { ProductService } from './product.service';
 import { HttpError } from '../../errors';
 import { APP_CONSTANT, HTTP } from '../../constant';
 import { HttpResponse } from '../../model/type';
+import { Product } from '../../model/schema/product.schema.model';
 
 class ProductController {
   private productService: ProductService;
@@ -14,6 +15,7 @@ class ProductController {
   async getProducts(req: Request, res: Response): Promise<Response> {
     try {
       const {} = req;
+      console.log(Product);
       const data = this.productService.getProducts();
       const httpReponse: HttpResponse<Object> = new HttpResponse(
         'Product fetched successfully',

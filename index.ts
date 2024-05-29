@@ -1,7 +1,6 @@
 import express from 'express';
 import { env } from './src/config';
 import { PostgresDataBase } from './src/database';
-import { ExpressApp } from './src/app';
 import { Loader } from './src/loader';
 import {
   LoggerService,
@@ -23,7 +22,8 @@ const postgresConn: PostgresDataBase = new PostgresDataBase(
 );
 
 const morganAccessLogger: AccessLogger = new HttpAccessLogger(loggerPath);
-
+postgresConn.connect();
+import { ExpressApp } from './src/app';
 const expressApp: ExpressApp = new ExpressApp(
   app,
   env.PORT,

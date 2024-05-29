@@ -15,4 +15,4 @@ const productController: ProductController = new ProductController(
 );
 router.get('/', productController.getProducts);
 
-export { router as productRouters };
+export { router as productRouter };

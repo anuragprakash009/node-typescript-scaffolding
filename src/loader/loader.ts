@@ -17,8 +17,6 @@ class Loader {
   }
   async loadServer(): Promise<void> {
     console.log('Starting server...');
-    console.log('Connecting to postgres...');
-    this.postgres.connect();
     await this.postgres.authenticate();
     console.log('Connected to postgres...');
     this.logger.info(`Server started`);

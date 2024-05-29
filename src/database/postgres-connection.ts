@@ -41,7 +41,7 @@ class PostgresDataBase implements DataBase {
 
   async authenticate(): Promise<void> {
     await PostgresDataBase.conn.authenticate();
-    //await this.sync();
+    await this.sync();
   }
 
   async sync(): Promise<void> {
