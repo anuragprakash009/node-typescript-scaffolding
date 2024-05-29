@@ -3,7 +3,11 @@ import { CategoryService } from './category.service';
 import { BadRequestError, HttpError } from '../../errors';
 import { APP_CONSTANT, HTTP } from '../../constant';
 import { HttpResponse } from '../../model/type';
-import { CreateCategoryDto, UpdateCategoryDto } from './dto';
+import {
+  CreateCategoryDto,
+  UpdateCategoryDto,
+  ResponseCategoryDto,
+} from './dto';
 
 class CategoryController {
   private categoryService: CategoryService;
@@ -27,8 +31,9 @@ class CategoryController {
       const createCategoryDto: CreateCategoryDto =
         CreateCategoryDto.build(body);
 
-      const data = await this.categoryService.createCategory(createCategoryDto);
-      const httpReponse: HttpResponse<Object> = new HttpResponse(
+      const data: ResponseCategoryDto =
+        await this.categoryService.createCategory(createCategoryDto);
+      const httpReponse: HttpResponse<ResponseCategoryDto> = new HttpResponse(
         'Category created successfully',
         data,
       );
@@ -40,8 +45,9 @@ class CategoryController {
   async getAllCategories(req: Request, res: Response): Promise<Response> {
     try {
       const {} = req;
-      const data = await this.categoryService.getAllCategories();
-      const httpReponse: HttpResponse<any> = new HttpResponse(
+      const data: ResponseCategoryDto[] =
+        await this.categoryService.getAllCategories();
+      const httpReponse: HttpResponse<ResponseCategoryDto[]> = new HttpResponse(
         'Categories fetched successfully',
         data,
       );
@@ -54,7 +60,7 @@ class CategoryController {
     try {
       const { id } = req.params;
       const data = await this.categoryService.getCategoryById(id);
-      const httpReponse: HttpResponse<any> = new HttpResponse(
+      const httpReponse: HttpResponse<ResponseCategoryDto> = new HttpResponse(
         'Category fetched successfully',
         data,
       );
@@ -79,7 +85,7 @@ class CategoryController {
         id,
         updateCategoryDto,
       );
-      const httpReponse: HttpResponse<any> = new HttpResponse(
+      const httpReponse: HttpResponse<ResponseCategoryDto> = new HttpResponse(
         'Category updated successfully',
         data,
       );
