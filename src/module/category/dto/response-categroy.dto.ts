@@ -1,4 +1,4 @@
-import { ServerError } from '../../../errors';
+import { ServerError, HttpError } from '../../../errors';
 
 class ResponseCategoryDto {
   private id: string;
@@ -20,6 +20,9 @@ class ResponseCategoryDto {
       responseCategory.setUpdatedAt(data.updatedAt);
       return responseCategory;
     } catch (error: any) {
+      if (error instanceof HttpError) {
+        throw error;
+      }
       throw new ServerError(error.message);
     }
   }

@@ -1,7 +1,10 @@
 import { DataTypes, Model } from 'sequelize';
 import { PostgresDataBase } from '../../database';
+import { Category } from './category.schema.model';
 
-class Product extends Model {}
+class Product extends Model {
+  categoryData: any;
+}
 
 Product.init(
   {
@@ -17,13 +20,20 @@ Product.init(
       type: DataTypes.STRING(1000),
       allowNull: false,
     },
-    category: {
+    categoryId: {
       type: DataTypes.UUID,
       allowNull: true,
     },
     isActive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: true,
+    },
+    categoryData: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.category.toJSON();
+      },
     },
   },
   {
@@ -31,8 +41,25 @@ Product.init(
     freezeTableName: true,
     modelName: 'Product',
     timestamps: true,
-    indexes: [],
+    indexes: [
+      {
+        name: 'fetchProductById',
+        fields: ['id', 'isActive'],
+      },
+    ],
+    hooks: {
+      beforeSave: (record: any) => {
+        if (!record.id) {
+          record.id = crypto.randomUUID();
+        }
+      },
+    },
   },
 );
+
+Product.belongsTo(Category, {
+  foreignKey: 'categoryId',
+  as: 'category',
+});
 
 export { Product };

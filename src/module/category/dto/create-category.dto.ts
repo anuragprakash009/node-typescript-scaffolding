@@ -1,4 +1,4 @@
-import { UnprocessableEntityError } from '../../../errors';
+import { UnprocessableEntityError, HttpError } from '../../../errors';
 
 class CreateCategoryDto {
   private name: string;
@@ -11,6 +11,9 @@ class CreateCategoryDto {
       createCategory.setName(data.name);
       return createCategory;
     } catch (error: any) {
+      if (error instanceof HttpError) {
+        throw error;
+      }
       throw new UnprocessableEntityError(error.message);
     }
   }
