@@ -1,18 +1,17 @@
 import express, { Router } from 'express';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
-// import { ProductRepository } from "./product.repository";
-// import { ProductHelper } from "./product.helper";
+import { ProductRepository } from './product.repository';
 
-const router: Router = express.Router();
-// const productRepository: ProductRepository = new ProductRepository();
-// const productHelper: ProductHelper = new ProductHelper();
-const productService: ProductService = new ProductService();
-// productHelper,
-// productRepository
+const productRouter: Router = express.Router();
+const productRepository: ProductRepository = new ProductRepository();
+const productService: ProductService = new ProductService(productRepository);
 const productController: ProductController = new ProductController(
   productService,
 );
-router.get('/', productController.getProducts);
+productRouter.post('/', productController.createProduct);
+productRouter.get('/', productController.getProducts);
+productRouter.get('/:id', productController.getProductById);
+productRouter.delete('/:id', productController.deleteProductById);
 
-export { router as productRouter };
+export { productRouter };
