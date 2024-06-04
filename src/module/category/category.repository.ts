@@ -14,7 +14,6 @@ class CategoryRepository {
       `createCategory repository new category: ${JSON.stringify(category.toJSON())}`,
     );
     try {
-      throw new Error(`Error saving category`);
       return await Category.create(category);
     } catch (error: any) {
       this.logger.error(
