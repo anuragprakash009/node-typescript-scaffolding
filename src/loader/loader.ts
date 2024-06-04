@@ -1,30 +1,32 @@
-import { ExpressApp } from '../app';
-import { PostgresDataBase } from '../database';
-import { LoggerService } from '../logger';
+import { Mongoose } from '../database';
+import { LoggerService, WinstonLogger } from '../logger';
+import { Application } from 'express';
+import { env } from '../config';
+import { AccessLogger, HttpAccessLogger } from '../logger';
 
 class Loader {
-  private app: ExpressApp;
-  private postgres: PostgresDataBase;
-  private logger: LoggerService;
-  constructor(
-    app: ExpressApp,
-    postgres: PostgresDataBase,
-    logger: LoggerService,
-  ) {
+  private app: Application;
+
+  constructor(app: Application) {
     this.app = app;
-    this.postgres = postgres;
-    this.logger = logger;
   }
+
   async loadServer(): Promise<void> {
-    console.log('Starting server...');
-    console.log('Connecting to postgres...');
-    this.postgres.connect();
-    await this.postgres.authenticate();
-    console.log('Connected to postgres...');
-    this.logger.info(`Server started`);
-    this.app.middlewares();
-    this.app.routes();
-    this.app.start();
+    const mongoose: Mongoose = new Mongoose(env.MONGO_URL);
+    console.log(`Connecting to database...`);
+    await mongoose.connect();
+    console.log(`Connected to database...`);
+    console.log(`Loggers Initializing...`);
+    const morganAccessLogger: AccessLogger = new HttpAccessLogger();
+    const logger: LoggerService = WinstonLogger.getInstance();
+    console.log(`Loggers Initialized...`);
+    let { ExpressApp } = await import('../app');
+    const expressApp = new ExpressApp(this.app, env.PORT, morganAccessLogger);
+    expressApp.middlewares();
+    expressApp.routes();
+    expressApp.start();
+    logger.info(`App started`);
+    console.log(`Server started and ready to serve the requestes`);
   }
 }
 

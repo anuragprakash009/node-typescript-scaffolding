@@ -2,15 +2,15 @@ import morgan from 'morgan';
 import { RotatingFileStream, createStream } from 'rotating-file-stream';
 import { AccessLogger } from './access.logger.interface';
 import { Handler } from 'express';
+import { env } from '../config';
 
 class HttpAccessLogger implements AccessLogger {
   private accessLogStream: RotatingFileStream;
-  private logPath: string;
-  constructor(logPath: string) {
-    this.logPath = logPath;
+  constructor() {
+    const logPath = env.LOG_PATH;
     this.accessLogStream = createStream('access.log', {
       interval: '30d',
-      path: this.logPath,
+      path: logPath,
     });
   }
   getAccessLoggerMiddleWare(): Handler {

@@ -4,7 +4,7 @@ import { ProductService } from './product.service';
 // import { ProductRepository } from "./product.repository";
 // import { ProductHelper } from "./product.helper";
 
-const router: Router = express.Router();
+const productRouter: Router = express.Router();
 // const productRepository: ProductRepository = new ProductRepository();
 // const productHelper: ProductHelper = new ProductHelper();
 const productService: ProductService = new ProductService();
@@ -13,6 +13,6 @@ const productService: ProductService = new ProductService();
 const productController: ProductController = new ProductController(
   productService,
 );
-router.get('/', productController.getProducts);
+productRouter.get('/', productController.getProducts);
 
-export { router as productRouters };
+export { productRouter };

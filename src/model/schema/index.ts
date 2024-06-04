@@ -1,3 +1,3 @@
-import { Product } from './product.schema.model';
+import { Category, ICategory } from './category.schema.model';
 
-export { Product };
+export { Category, ICategory };

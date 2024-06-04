@@ -6,14 +6,15 @@ const APP_CONSTANT = {
   },
   URL: {},
   SERVICE: {
-    BASE_URL: '/product-management-system',
+    PRODUCT_BASE_URL: '/product-management-system',
   },
   VERSION: {
     NUMBER: '/v1',
   },
   MODULE: {
     PRODUCT: {
-      BASE_URL: '/product',
+      PRODUCT_BASE_URL: '/product',
+      CATEGORY_BASE_URL: '/category',
     },
   },
 };

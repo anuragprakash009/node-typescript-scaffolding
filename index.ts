@@ -1,37 +1,12 @@
-import express from 'express';
-import { env } from './src/config';
-import { PostgresDataBase } from './src/database';
-import { ExpressApp } from './src/app';
-import { Loader } from './src/loader';
-import {
-  LoggerService,
-  WinstonLogger,
-  AccessLogger,
-  HttpAccessLogger,
-} from './src/logger';
 import { join } from 'path';
-
 const loggerPath: string = join(__dirname, 'logs');
+process.env.LOG_PATH = process.env.LOG_PATH || loggerPath;
 
-const app = express();
-const postgresConn: PostgresDataBase = new PostgresDataBase(
-  env.DB_USERNAME,
-  env.DATABASE,
-  env.PASSWORD,
-  env.DB_HOST,
-  env.DB_PORT,
-);
+import express, { Application } from 'express';
+import { Loader } from './src/loader';
 
-const morganAccessLogger: AccessLogger = new HttpAccessLogger(loggerPath);
+const app: Application = express();
 
-const expressApp: ExpressApp = new ExpressApp(
-  app,
-  env.PORT,
-  morganAccessLogger,
-);
-
-const logger: LoggerService = new WinstonLogger(loggerPath);
-
-const loader: Loader = new Loader(expressApp, postgresConn, logger);
+const loader: Loader = new Loader(app);
 
 loader.loadServer();

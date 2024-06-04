@@ -1,5 +1,5 @@
 interface DataBase {
-  connect(): void;
+  connect(): Promise<void>;
 }
 
 export { DataBase };

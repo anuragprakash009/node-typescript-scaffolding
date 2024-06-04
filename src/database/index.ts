@@ -1,3 +1,3 @@
-import { PostgresDataBase } from './postgres-connection';
+import { Mongoose } from './mongoose.database';
 
-export { PostgresDataBase };
+export { Mongoose };
