@@ -1,3 +1,3 @@
-import { Mongoose } from './mongoose.database';
+import { MongoDbConnection } from './mongoose.database';
 
-export { Mongoose };
+export { MongoDbConnection };

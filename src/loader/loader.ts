@@ -1,4 +1,4 @@
-import { Mongoose } from '../database';
+import { MongoDbConnection } from '../database';
 import { LoggerService, WinstonLogger } from '../logger';
 import { Application } from 'express';
 import { env } from '../config';
@@ -12,7 +12,7 @@ class Loader {
   }
 
   async loadServer(): Promise<void> {
-    const mongoose: Mongoose = new Mongoose(env.MONGO_URL);
+    const mongoose: MongoDbConnection = new MongoDbConnection(env.MONGO_URL);
     console.log(`Connecting to database...`);
     await mongoose.connect();
     console.log(`Connected to database...`);

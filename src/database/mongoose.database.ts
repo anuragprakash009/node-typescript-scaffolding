@@ -1,11 +1,13 @@
-import { DataBase } from './db-interface';
-import { connect } from 'mongoose';
+import { ServerError } from '../errors';
+import { IDataBase } from './database.interface';
+import { connect, Mongoose } from 'mongoose';
 
-class Mongoose implements DataBase {
+class MongoDbConnection implements IDataBase {
   private url: string;
-
+  private static conn: Mongoose | null;
   constructor(url: string) {
     this.url = url;
+    MongoDbConnection.conn = null;
   }
 
   connect(): Promise<void> {
@@ -16,10 +18,19 @@ class Mongoose implements DataBase {
         connectTimeoutMS: 30000,
         socketTimeoutMS: 45000,
       })
-        .then(() => resolve())
+        .then((res) => {
+          MongoDbConnection.conn = res;
+          resolve();
+        })
         .catch((err) => reject(err));
     });
   }
+  static getConnection(): Mongoose {
+    if (!MongoDbConnection.conn) {
+      throw new ServerError(`Mongoose connection not found`);
+    }
+    return MongoDbConnection.conn;
+  }
 }
 
-export { Mongoose };
+export { MongoDbConnection };
