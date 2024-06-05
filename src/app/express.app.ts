@@ -1,10 +1,10 @@
 import express, { Application, Handler } from 'express';
-import { App } from './app-interface';
+import { IApp } from './app.interface';
 import { categoryRouter, productRouter } from '../module';
 import { APP_CONSTANT } from '../constant';
 import { AccessLogger } from '../logger';
 
-class ExpressApp implements App<Application> {
+class ExpressApp implements IApp<Application> {
   private app: Application;
   private port: number;
   private accesslogger: AccessLogger;

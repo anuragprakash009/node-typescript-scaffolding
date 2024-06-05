@@ -1,2 +1,2 @@
-import { ExpressApp } from './express-app-loader';
+import { ExpressApp } from './express.app';
 export { ExpressApp };
