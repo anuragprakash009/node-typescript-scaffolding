@@ -1,7 +1,7 @@
 import { Handler } from 'express';
 
-interface AccessLogger {
+interface IAccessLogger {
   getAccessLoggerMiddleWare(): Handler;
 }
 
-export { AccessLogger };
+export { IAccessLogger };

@@ -1,8 +1,12 @@
 import { MongoDbConnection } from '../database';
-import { LoggerService, WinstonLogger } from '../logger';
+import {
+  ILoggerService,
+  WinstonLogger,
+  IAccessLogger,
+  HttpAccessLogger,
+} from '../logger';
 import { Application } from 'express';
 import { env } from '../config';
-import { AccessLogger, HttpAccessLogger } from '../logger';
 
 class Loader {
   private app: Application;
@@ -17,8 +21,8 @@ class Loader {
     await mongoose.connect();
     console.log(`Connected to database...`);
     console.log(`Loggers Initializing...`);
-    const morganAccessLogger: AccessLogger = new HttpAccessLogger();
-    const logger: LoggerService = WinstonLogger.getInstance();
+    const morganAccessLogger: IAccessLogger = new HttpAccessLogger();
+    const logger: ILoggerService = WinstonLogger.getInstance();
     console.log(`Loggers Initialized...`);
     let { ExpressApp } = await import('../app');
     const expressApp = new ExpressApp(this.app, env.PORT, morganAccessLogger);

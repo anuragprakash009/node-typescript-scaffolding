@@ -1,11 +1,11 @@
 import { Category, ICategory } from '../../model/schema';
 import { ServerError } from '../../errors';
-import { LoggerService } from '../../logger';
+import { ILoggerService } from '../../logger';
 
 class CategoryRepository {
-  private logger: LoggerService;
+  private logger: ILoggerService;
 
-  constructor(logger: LoggerService) {
+  constructor(logger: ILoggerService) {
     this.logger = logger;
   }
 

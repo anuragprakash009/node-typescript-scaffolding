@@ -2,13 +2,13 @@ import express, { Application, Handler } from 'express';
 import { IApp } from './app.interface';
 import { categoryRouter, productRouter } from '../module';
 import { APP_CONSTANT } from '../constant';
-import { AccessLogger } from '../logger';
+import { IAccessLogger } from '../logger';
 
 class ExpressApp implements IApp<Application> {
   private app: Application;
   private port: number;
-  private accesslogger: AccessLogger;
-  constructor(app: Application, port: number, accesslogger: AccessLogger) {
+  private accesslogger: IAccessLogger;
+  constructor(app: Application, port: number, accesslogger: IAccessLogger) {
     this.port = port || 8000;
     this.app = app;
     this.accesslogger = accesslogger;

@@ -7,12 +7,12 @@ import {
 import { CategoryRepository } from './category.repository';
 import { Category, ICategory } from '../../model/schema';
 //import { NotFoundError } from '../../errors';
-import { LoggerService } from '../../logger';
+import { ILoggerService } from '../../logger';
 
 class CategoryService {
   private categoryRepository: CategoryRepository;
-  private logger: LoggerService;
-  constructor(logger: LoggerService, categoryRepository: CategoryRepository) {
+  private logger: ILoggerService;
+  constructor(logger: ILoggerService, categoryRepository: CategoryRepository) {
     this.categoryRepository = categoryRepository;
     this.logger = logger;
   }
