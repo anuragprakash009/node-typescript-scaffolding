@@ -1,8 +1,8 @@
-import { DataBase } from './db-interface';
+import { IDataBase } from './database.interface';
 
 import { Sequelize } from 'sequelize';
 
-class PostgresDataBase implements DataBase {
+class PostgresDataBase implements IDataBase {
   private static conn: any;
   private username: string;
   private database: string;
@@ -23,25 +23,28 @@ class PostgresDataBase implements DataBase {
     this.password = password;
     this.port = port;
   }
-  connect(): void {
-    PostgresDataBase.conn = new Sequelize(
-      this.database,
-      this.username,
-      this.password,
-      {
-        host: this.host,
-        dialect: 'postgres',
-        username: this.username,
-        password: this.password,
-        port: Number(this.port),
-        database: this.database,
-      },
-    );
+  connect(): Promise<void> {
+    return new Promise<void>(async (resolve) => {
+      PostgresDataBase.conn = new Sequelize(
+        this.database,
+        this.username,
+        this.password,
+        {
+          host: this.host,
+          dialect: 'postgres',
+          username: this.username,
+          password: this.password,
+          port: Number(this.port),
+          database: this.database,
+        },
+      );
+      await this.authenticate();
+      resolve();
+    });
   }
 
   async authenticate(): Promise<void> {
     await PostgresDataBase.conn.authenticate();
-    await this.sync();
   }
 
   async sync(): Promise<void> {

@@ -20,6 +20,7 @@ const env = cleanEnv(process.env, {
   PASSWORD: str(),
   DB_PORT: port(),
   DB_HOST: host(),
+  LOG_PATH: str(),
 });
 
 export { env };

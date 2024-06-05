@@ -1,14 +1,24 @@
 import { Logger, createLogger, format, transports } from 'winston';
 import { env } from '../config/';
 import { join } from 'path';
-import { LoggerService } from './logger.interface';
+import { ILoggerService } from './logger.interface';
 import DailyRotateFile from 'winston-daily-rotate-file';
+import { ServerError } from '../errors';
 
-class WinstonLogger implements LoggerService {
-  private logger: Logger;
+class WinstonLogger implements ILoggerService {
+  private logger: Logger | null;
   private filePath: string;
-  constructor(filePath: string) {
-    this.filePath = filePath;
+  private static instance: null | WinstonLogger;
+  constructor() {
+    this.logger = null;
+    this.filePath = '';
+    this.debug = this.debug.bind(this);
+    this.info = this.info.bind(this);
+    this.error = this.error.bind(this);
+    this.getFormattedMessage = this.getFormattedMessage.bind(this);
+  }
+  private initialize() {
+    this.filePath = env.LOG_PATH;
     this.logger = createLogger({
       format: format.json(),
       transports: [
@@ -43,7 +53,17 @@ class WinstonLogger implements LoggerService {
       );
     }
   }
+  static getInstance(): WinstonLogger {
+    if (!WinstonLogger.instance) {
+      WinstonLogger.instance = new WinstonLogger();
+      WinstonLogger.instance.initialize();
+    }
+    return WinstonLogger.instance;
+  }
   debug(message: string): void {
+    if (!this.logger) {
+      throw new ServerError(`Logger not initialized`);
+    }
     const isoTimeStamp = new Date().toISOString();
 
     this.logger.debug({
@@ -52,6 +72,9 @@ class WinstonLogger implements LoggerService {
     });
   }
   error(message: string): void {
+    if (!this.logger) {
+      throw new ServerError(`Logger not initialized`);
+    }
     const isoTimeStamp = new Date().toISOString();
 
     this.logger.error({
@@ -60,6 +83,9 @@ class WinstonLogger implements LoggerService {
     });
   }
   info(message: string): void {
+    if (!this.logger) {
+      throw new ServerError(`Logger not initialized`);
+    }
     const isoTimeStamp = new Date().toISOString();
     this.logger.info({
       message: message,
