@@ -36,6 +36,13 @@ class PostgresDataBase implements IDataBase {
           password: this.password,
           port: Number(this.port),
           database: this.database,
+          pool: {
+            max: 20, // Maximum number of connections in the pool
+            min: 5, // Minimum number of connections in the pool
+            acquire: 30000, // Maximum time (in milliseconds) to try to get a connection before throwing an error
+            idle: 10000, // Maximum time (in milliseconds) that a connection can be idle before being released
+            evict: 10000, // Time interval (in milliseconds) after which idle connections are removed
+          },
         },
       );
       await this.authenticate();
