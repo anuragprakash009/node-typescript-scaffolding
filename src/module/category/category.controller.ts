@@ -8,12 +8,14 @@ import {
   UpdateCategoryDto,
   ResponseCategoryDto,
 } from './dto';
+import { ILoggerService } from '../../logger';
 
 class CategoryController {
+  private logger: ILoggerService;
   private categoryService: CategoryService;
-  constructor(categoryService: CategoryService) {
+  constructor(logger: ILoggerService, categoryService: CategoryService) {
     this.categoryService = categoryService;
-
+    this.logger = logger;
     this.createCategory = this.createCategory.bind(this);
     this.deleteCategory = this.deleteCategory.bind(this);
     this.updateCategory = this.updateCategory.bind(this);
@@ -22,6 +24,9 @@ class CategoryController {
   }
 
   async createCategory(req: Request, res: Response): Promise<Response> {
+    this.logger.info(
+      `createCategory controller req body: ${JSON.stringify(req.body)}`,
+    );
     try {
       const body: Object = req.body;
       if (!body) {
@@ -38,7 +43,10 @@ class CategoryController {
         data,
       );
       return res.send(httpReponse.toJSON());
-    } catch (error) {
+    } catch (error: any) {
+      this.logger.error(
+        `createCategory controller req body: ${JSON.stringify(req.body)} ${error.message} ${error.stack}`,
+      );
       return this.throwError(res, error);
     }
   }

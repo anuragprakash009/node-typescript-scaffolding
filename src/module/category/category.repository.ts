@@ -1,11 +1,22 @@
 import { Category } from '../../model/schema';
 import { ServerError } from '../../errors';
+import { ILoggerService } from '../../logger';
 
 class CategoryRepository {
+  private logger: ILoggerService;
+  constructor(logger: ILoggerService) {
+    this.logger = logger;
+  }
   async save(category: Category): Promise<Category> {
+    this.logger.info(
+      `save category repository new category: ${JSON.stringify(category.toJSON())}`,
+    );
     try {
       return await category.save();
-    } catch (error) {
+    } catch (error: any) {
+      this.logger.error(
+        `save category repository new category: ${JSON.stringify(category.toJSON())} ${error.message} ${error.stack}`,
+      );
       throw new ServerError('Failed to create record in database');
     }
   }
