@@ -24,7 +24,6 @@ class ExpressApp implements IApp<Application> {
 
   routes(): void {
     console.log(`Routes initialized`);
-    console.log(`Routes initialized`);
     const projectBaseUrl: string =
       APP_CONSTANT.SERVICE.PRODUCT_BASE_URL +
       APP_CONSTANT.VERSION.NUMBER +
