@@ -61,11 +61,11 @@ class ProductRepository {
   }
   async updateById(id: string, updateCondition: any): Promise<void> {
     try {
-      await Product.update(updateCondition, {
-        where: {
-          id: id,
-        },
-      });
+      const record: Product | null = await this.findById(id);
+      if (!record) {
+        throw new ServerError(`Record not found`);
+      }
+      await record.update(updateCondition);
     } catch (error) {
       throw new ServerError(`Failed to update the record`);
     }
