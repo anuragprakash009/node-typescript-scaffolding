@@ -25,7 +25,7 @@ class ProductRepository {
         isActive: true,
       })
         .populate('category')
-        .sort('id');
+        .sort({ _id: -1 });
       return records;
     } catch (error: any) {
       this.logger.error(`findAll repository ${error.message} ${error.stack}`);
