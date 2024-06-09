@@ -2,10 +2,12 @@ import express, { Router } from 'express';
 import { CategoryController } from './category.controller';
 import { CategoryService } from './category.service';
 import { CategoryRepository } from './category.repository';
+import { WinstonLogger, ILoggerService } from '../../logger';
 
-const repository: CategoryRepository = new CategoryRepository();
-const service: CategoryService = new CategoryService(repository);
-const controller: CategoryController = new CategoryController(service);
+const logger: ILoggerService = WinstonLogger.getInstance();
+const repository: CategoryRepository = new CategoryRepository(logger);
+const service: CategoryService = new CategoryService(logger, repository);
+const controller: CategoryController = new CategoryController(logger, service);
 
 const categoryRouter: Router = express.Router();
 

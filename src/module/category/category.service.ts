@@ -6,16 +6,22 @@ import {
 import { CategoryRepository } from './category.repository';
 import { Category } from '../../model/schema';
 import { NotFoundError } from '../../errors';
+import { ILoggerService } from '../../logger';
 
 class CategoryService {
+  private logger: ILoggerService;
   private categoryRepository: CategoryRepository;
-  constructor(categoryRepository: CategoryRepository) {
+  constructor(logger: ILoggerService, categoryRepository: CategoryRepository) {
+    this.logger = logger;
     this.categoryRepository = categoryRepository;
   }
 
   async createCategory(
     createCategoryDto: CreateCategoryDto,
   ): Promise<ResponseCategoryDto> {
+    this.logger.info(
+      `createCategory service DTO ${JSON.stringify(createCategoryDto)}`,
+    );
     try {
       let category = Category.build(createCategoryDto.toJSON());
       const newCategory: Category =
@@ -23,7 +29,10 @@ class CategoryService {
       const response: ResponseCategoryDto =
         ResponseCategoryDto.build(newCategory);
       return response;
-    } catch (error) {
+    } catch (error: any) {
+      this.logger.error(
+        `createCategory service DTO ${JSON.stringify(createCategoryDto)} ${error.message} ${error.stack}`,
+      );
       throw error;
     }
   }
