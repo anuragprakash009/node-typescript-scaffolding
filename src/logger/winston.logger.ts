@@ -1,11 +1,11 @@
 import { Logger, createLogger, format, transports } from 'winston';
 import { env } from '../config/';
 import { join } from 'path';
-import { LoggerService } from './logger.interface';
+import { ILoggerService } from './logger.interface';
 import DailyRotateFile from 'winston-daily-rotate-file';
 import { ServerError } from '../errors';
 
-class WinstonLogger implements LoggerService {
+class WinstonLogger implements ILoggerService {
   private logger: Logger | null;
   private filePath: string;
   private static instance: null | WinstonLogger;

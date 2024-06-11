@@ -10,6 +10,7 @@ const categorySchema: Schema = new Schema<ICategory>(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
     isActive: {
       type: Boolean,
@@ -21,6 +22,11 @@ const categorySchema: Schema = new Schema<ICategory>(
     timestamps: true,
   },
 );
+
+categorySchema.index({
+  name: 1,
+  isActive: 1,
+});
 
 const Category = model<ICategory>('Category', categorySchema);
 

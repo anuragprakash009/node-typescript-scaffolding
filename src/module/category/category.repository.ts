@@ -1,11 +1,11 @@
 import { Category, ICategory } from '../../model/schema';
 import { ServerError } from '../../errors';
-import { LoggerService } from '../../logger';
+import { ILoggerService } from '../../logger';
 
 class CategoryRepository {
-  private logger: LoggerService;
+  private logger: ILoggerService;
 
-  constructor(logger: LoggerService) {
+  constructor(logger: ILoggerService) {
     this.logger = logger;
   }
 
@@ -14,7 +14,6 @@ class CategoryRepository {
       `createCategory repository new category: ${JSON.stringify(category.toJSON())}`,
     );
     try {
-      throw new Error(`Error saving category`);
       return await Category.create(category);
     } catch (error: any) {
       this.logger.error(

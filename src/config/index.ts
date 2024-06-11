@@ -1,2 +1,2 @@
-import { env } from './env-config';
+import { env } from './env.config';
 export { env };

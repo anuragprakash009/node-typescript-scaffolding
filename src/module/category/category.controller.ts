@@ -3,7 +3,7 @@ import { CategoryService } from './category.service';
 import { BadRequestError, HttpError } from '../../errors';
 import { APP_CONSTANT, HTTP } from '../../constant';
 import { HttpResponse } from '../../model/type';
-import { LoggerService } from '../../logger';
+import { ILoggerService } from '../../logger';
 import {
   CreateCategoryDto,
   // UpdateCategoryDto,
@@ -12,8 +12,8 @@ import {
 
 class CategoryController {
   private categoryService: CategoryService;
-  private logger: LoggerService;
-  constructor(logger: LoggerService, categoryService: CategoryService) {
+  private logger: ILoggerService;
+  constructor(logger: ILoggerService, categoryService: CategoryService) {
     this.logger = logger;
     this.categoryService = categoryService;
 

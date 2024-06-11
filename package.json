@@ -32,7 +32,6 @@
     "mongoose": "^8.4.0",
     "morgan": "^1.10.0",
     "rotating-file-stream": "^3.2.1",
-    "sequelize": "^6.37.2",
     "winston": "^3.13.0",
     "winston-daily-rotate-file": "^5.0.0"
   }

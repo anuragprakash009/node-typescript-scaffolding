@@ -15,7 +15,7 @@ class ResponseCategoryDto {
     try {
       const responseCategory: ResponseCategoryDto = new ResponseCategoryDto();
       responseCategory.setName(data.name);
-      responseCategory.setId(data.id);
+      responseCategory.setId(data._id);
       responseCategory.setCreatedAt(data.createdAt);
       responseCategory.setUpdatedAt(data.updatedAt);
       return responseCategory;
