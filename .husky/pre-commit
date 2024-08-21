@@ -4,4 +4,5 @@
 
 npm run compiler:check
 npm run format:write
+npm run literal:env:check
 git add .
