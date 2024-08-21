@@ -3,6 +3,6 @@
 
 
 npm run compiler:check
-npm run format:write
 npm run literal:env:check
+npm run format:write
 git add .
