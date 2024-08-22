@@ -3,6 +3,8 @@
 
 
 npm run compiler:check
-npm run literal:env:check
-npm run format:write
+staged_files=$(git diff --name-only --cached)
+npm run literal:env:check $staged_files
+files=$(printf " %s" "${staged_files[@]}")
+npm run format:write:staged $files
 git add .
