@@ -12,7 +12,8 @@
     "format:check": "npx prettier --check .",
     "prepare": "husky install",
     "compiler:check": "npx tsc --noEmit",
-    "literal:env:check": "node literal-env-check.js"
+    "literal:env:check": "node literal-staged-file-env-check.js",
+    "format:write:staged": "npx prettier --write"
   },
   "keywords": [],
   "author": "",
