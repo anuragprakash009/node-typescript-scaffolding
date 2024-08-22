@@ -31,7 +31,6 @@ function findFilesWithEnv(stagedFiles) {
 
 function checkForLiteralUseOfProcessEnvVariables() {
   const stagedFiles = process.argv.slice(2);
-  console.log(stagedFiles);
   findFilesWithEnv(stagedFiles);
   if (literalProcessEnvs.length > 0) {
     for (const literalProcessEnv of literalProcessEnvs) {
